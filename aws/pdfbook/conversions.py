@@ -9,7 +9,11 @@ from StringIO import StringIO
 import HTMLParser
 
 from AccessControl import Unauthorized
-from zope.app.component.hooks import getSite
+try:
+    from zope.component.hooks import getSite
+except ImportError:
+    from zope.app.component.hooks import getSite
+
 from DateTime import DateTime
 
 from Products.CMFCore.utils import getToolByName
@@ -17,6 +21,7 @@ from Products.CMFCore.FSImage import FSImage
 from Products.CMFDefault.interfaces import IImage
 from Products.Archetypes.utils import make_uuid
 from Products.CMFPlone.utils import getFSVersionTuple
+
 if getFSVersionTuple() >= (4,0):
     from Products.ATContentTypes.interfaces.image import IATImage
 else:
@@ -86,7 +91,7 @@ class RecodeParser(HTMLParser.HTMLParser):
                 break
         else:
             return
-        
+
         self.data.write(u'<img src="%s" />' % new_id)
 
     def handle_comment(self, data):
