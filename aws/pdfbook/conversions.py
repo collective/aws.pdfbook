@@ -151,16 +151,17 @@ class RecodeParser(HTMLParser.HTMLParser):
             if 'resolveuid' in image:
                 # uid is the traversed value coming after "resolveuid/"
                 resolveuidpath = image.split('/')
+                resolveuid_idx = resolveuidpath.index('resolveuid')
                 try:
-                    uuid = resolveuidpath[resolveuidpath.index('resolveuid') + 1]
+                    uuid = resolveuidpath[resolveuid_idx + 1]
                 except IndexError:
                     logger.error("Failed to get image uid from %s", image)
                     continue
 
                 item = reference_tool.lookupObject(uuid)
 
-                if len(resolveuidpath) >= resolveuidpath.index('resolveuid') + 2:
-                    size = resolveuidpath[resolveuidpath.index('resolveuid') + 2]
+                if len(resolveuidpath) >= resolveuid_idx + 2:
+                    size = resolveuidpath[resolveuid_idx + 2]
 
                 logger.debug("Get image from uid %s", uuid)
 
