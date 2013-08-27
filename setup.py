@@ -8,7 +8,7 @@ def _textFromPath(*names):
     path = os.path.join(here, *names)
     return open(path, 'r').read().strip()
 
-version = '1.0.2dev'
+version = '1.0.2'
 
 setup(
     name='aws.pdfbook',
