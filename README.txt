@@ -85,7 +85,7 @@ More particularly, you may change default ``pdfbook`` options. See the `pdfbook
 documentation <http://www.htmldoc.org/documentation.php/toc.html>`_ for the
 various available options.
 
-If you wan't to use logo in headers, you just have to setup the path to get the
+If you want to use logo in headers, you just have to setup the path to get the
 logo on Logo path field. *Don't* set --logo option in htmldoc options,
 this is done by the system. But you may use --webpage option.
 
