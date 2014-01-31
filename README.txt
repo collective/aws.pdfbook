@@ -150,7 +150,7 @@ Contributors
 ============
 
 The github repository for this component is
-https://svn.plone.org/svn/collective/aws.pdfbook .
+git@github.com:collective/aws.pdfbook.git .
 
 The development kit comes with a ``buildout.cfg`` for the latest Plone stable
 version.

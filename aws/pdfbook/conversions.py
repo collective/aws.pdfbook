@@ -236,7 +236,6 @@ def makePDF(html, context, request):
         if hasattr(logo_file, '__call__'):
             # callable() doesnt work: FSImage is callable !
             logo_file = logo_file()
-        import pdb;pdb.set_trace()
         data = get_image_data(logo_file)
         if data:
             if hasattr(logo_file, 'filename'):
@@ -259,7 +258,6 @@ def makePDF(html, context, request):
             fsinfo.html_filename,
             fsinfo.pdf_filepath
             )
-    import pdb;pdb.set_trace()
     logger.info(cmd)
     os.system(cmd)
     return fsinfo
