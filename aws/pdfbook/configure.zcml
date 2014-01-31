@@ -25,5 +25,14 @@
      class=".utils.PDFBookEnabled"
      permission="zope2.View"
      />
-  
+
+  <gs:upgradeStep
+      title="Upgrade to 2"
+      description="Add logo property"
+      source="1"
+      destination="2"
+      handler=".upgrades.v2"
+      profile="aws.pdfbook:default" />
+
+
 </configure>

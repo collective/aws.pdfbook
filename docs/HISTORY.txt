@@ -4,13 +4,17 @@ Changelog
 1.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added a 'logo' property to allow us to use htmldoc logo options in headers.
+  [thomasdesvenain]
+
+- Brazilian translations.
+  [lepri]
 
 
 1.0.3 (2013-08-27)
 ------------------
 
-- Nothing changed yet.
+- Fixed release.
 
 
 1.0.2 (2013-08-27)
@@ -68,8 +72,10 @@ Changelog
 
 * i18nisation and added french translation
   [glenfant]
+
 * Unit tests
   [glenfant]
+
 * Cleaned up useless code from Products.PDFBook
   [glenfant]
 

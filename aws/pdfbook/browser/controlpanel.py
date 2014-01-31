@@ -34,6 +34,7 @@ class PDFOptions(SchemaAdapterBase):
     recode_path = ProxyFieldProperty(IPDFOptions['recode_path'])
     htmldoc_path = ProxyFieldProperty(IPDFOptions['htmldoc_path'])
     htmldoc_options = ProxyFieldProperty(IPDFOptions['htmldoc_options'])
+    pdfbook_logo = ProxyFieldProperty(IPDFOptions['pdfbook_logo'])
 
 
 class PDFControlPanel(ControlPanelForm):

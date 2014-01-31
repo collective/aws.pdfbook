@@ -29,7 +29,7 @@ else:
 
 from aws.pdfbook.interfaces import IPDFOptions
 from aws.pdfbook import logger
-from aws.pdfbook.config import SITE_CHARSET
+
 
 CHAR_MAPPING = {
     u"'": u'\u2019', # Apostrophe Windoz
@@ -37,21 +37,6 @@ CHAR_MAPPING = {
     u'OE': u'\u0152',
     u'...': u'\u2026'
     }
-
-def recode(data):
-    """Use recode binary to fix encoding problems
-    FIXME: Is it always required ?
-    """
-    htmlbook_options = IPDFOptions(getSite())
-    recodeout, recodein = popen2.popen2(
-        "%s %s..html-i18n" %
-        (htmlbook_options.recode_path, SITE_CHARSET))
-    recodein.write(data)
-    recodein.close()
-    data = recodeout.read()
-    recodeout.close()
-    return data
-
 
 class FileSystemInfo(object):
     """Various temporary places required in filesystem for conversions
@@ -72,6 +57,24 @@ class FileSystemInfo(object):
         return
 
 
+def get_image_data(item):
+    if IATImage.providedBy(item):
+        data = item.getImage()
+        return getattr(item, 'data', data)
+    elif isinstance(item, FSImage):
+        return item._readFile(0)
+    elif IImage.providedBy(item):
+        return item.data
+    else:
+        return getattr(item, 'data', '')
+
+
+def _write_file(data, fsinfo, filename):
+    image_file = open(os.path.join(fsinfo.tmp_dir, filename) , 'wb')
+    image_file.write(str(data))
+    image_file.close()
+
+
 class RecodeParser(HTMLParser.HTMLParser):
 
     def __init__(self, fsinfo):
@@ -87,7 +90,6 @@ class RecodeParser(HTMLParser.HTMLParser):
             if name == 'src':
                 new_id = make_uuid()
                 self.images.append((new_id, value))
-                #path = os.path.basename(v)
                 break
         else:
             return
@@ -144,7 +146,6 @@ class RecodeParser(HTMLParser.HTMLParser):
             if type(image) is unicode:
                 image = str(image)
             path = image.replace(portal_url, '')
-            #filename = os.path.basename(path)
 
             item = None
             # using uid
@@ -205,22 +206,10 @@ class RecodeParser(HTMLParser.HTMLParser):
                     pass
 
             # Eek, we should put an adapter for various image providers (overkill ?).
-            data = ''
-            if IATImage.providedBy(item):
-                data = item.getImage()
-                data = getattr(item, 'data', data)
-            elif isinstance(item, FSImage):
-                data = item._readFile(0)
-            elif IImage.providedBy(item) \
-                or hasattr(item, 'data'):
-                data = item.data
-            else:
-                data = getattr(item, 'data', data)
+            data = get_image_data(item)
 
             if data:
-                image_file = open(os.path.join(self.fsinfo.tmp_dir, filename) , 'wb')
-                image_file.write(str(data))
-                image_file.close()
+                _write_file(data, self.fsinfo, filename)
         return
 
 
@@ -239,13 +228,38 @@ def makePDF(html, context, request):
 
     # Building the PDF
     pdfbook_options = IPDFOptions(getSite())
-    cmd = 'cd %s && %s %s %s > %s' % (
+
+    # get the logo
+    if pdfbook_options.pdfbook_logo:
+        logo_path = pdfbook_options.pdfbook_logo
+        logo_file = context.restrictedTraverse(str(logo_path))
+        if hasattr(logo_file, '__call__'):
+            # callable() doesnt work: FSImage is callable !
+            logo_file = logo_file()
+        import pdb;pdb.set_trace()
+        data = get_image_data(logo_file)
+        if data:
+            if hasattr(logo_file, 'filename'):
+                logo_path = logo_file.filename
+
+            logo = logo_path.split('/')[-1]
+            _write_file(data, fsinfo, logo)
+        else:
+            logo = None
+    else:
+        logo = None
+
+    logo_option = logo and '--logo %s' % (logo) or ""
+
+    cmd = 'cd %s && %s %s %s %s > %s' % (
             fsinfo.tmp_dir,
             pdfbook_options.htmldoc_path,
+            logo_option,
             pdfbook_options.htmldoc_options,
             fsinfo.html_filename,
             fsinfo.pdf_filepath
             )
+    import pdb;pdb.set_trace()
     logger.info(cmd)
     os.system(cmd)
     return fsinfo

@@ -85,6 +85,10 @@ More particularly, you may change default ``pdfbook`` options. See the `pdfbook
 documentation <http://www.htmldoc.org/documentation.php/toc.html>`_ for the
 various available options.
 
+If you wan't to use logo in headers, you just have to setup the path to get the
+logo on Logo path field. *Don't* set --logo option in htmldoc options,
+this is done by the system. But you may use --webpage option.
+
 Other setups
 ------------
 
@@ -145,7 +149,7 @@ awful, you may blacklist such content types in the configuration panel.
 Contributors
 ============
 
-The subversion repository for this component is
+The github repository for this component is
 https://svn.plone.org/svn/collective/aws.pdfbook .
 
 The development kit comes with a ``buildout.cfg`` for the latest Plone stable
@@ -166,6 +170,7 @@ Credits
 * Plone 3.x support by `Gilles Lenfant <mailto:gilles.lenfant@amterway.fr>`_ for
   `Alter Way Solutions <http://www.alterway.fr>`_
 * Sponsored by `Materis <http://www.materis.com/>`_
+* Maintained by `Thomas Desvenain <mailto:thomas.desvenain@gmail.com>`_
 
 .. image:: http://www.materis.com/template/imgs_fr/logo.gif
    :align: center

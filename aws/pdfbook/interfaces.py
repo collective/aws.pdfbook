@@ -7,6 +7,7 @@ from zope.schema import Tuple
 from zope.schema import Bool
 from zope.schema import ASCIILine
 from zope.schema import Text
+from zope.schema import TextLine
 from zope.schema import Choice
 
 from aws.pdfbook import translate as _
@@ -56,6 +57,18 @@ class IPDFOptions(Interface):
             ),
         required=False
         )
+
+    pdfbook_logo = TextLine(
+        title=_(u"Logo path"),
+        description=_(
+            u'help_pdfbook_logo',
+            default=(
+                u"The path of the logo if you need to include a logo in your headers (can be a path relative to the document, can be a view or a script)."
+                )
+            ),
+        required=False
+        )
+
 
 class IAWSPDFBookLayer(Interface):
     """Layer for views used in PDFBook"""

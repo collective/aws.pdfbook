@@ -11,5 +11,7 @@
      type="string">/usr/bin/htmldoc</property>
   <property name="htmldoc_options"
      type="text">--charset iso-8859-15 --headfootsize 8.0 --bodyfont helvetica --headfootfont Helvetica-Oblique --size a4 --book -t pdf</property>
+  <property name="pdfbook_logo"
+     type="string"></property>
  </object>
 </object>
