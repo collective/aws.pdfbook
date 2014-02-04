@@ -20,7 +20,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.FSImage import FSImage
 from Products.CMFDefault.interfaces import IImage
 from Products.Archetypes.utils import make_uuid
-from Products.CMFPlone.utils import getFSVersionTuple
+from Products.CMFPlone.utils import getFSVersionTuple, normalizeString
 
 if getFSVersionTuple() >= (4,0):
     from Products.ATContentTypes.interfaces.image import IATImage
@@ -239,7 +239,7 @@ def makePDF(html, context, request):
         data = get_image_data(logo_file)
         if data:
             if hasattr(logo_file, 'filename'):
-                logo_path = logo_file.filename
+                logo_path = normalizeString(logo_file.filename, context=context)
 
             logo = logo_path.split('/')[-1]
             _write_file(data, fsinfo, logo)
