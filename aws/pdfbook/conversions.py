@@ -35,7 +35,8 @@ CHAR_MAPPING = {
     u"'": u'\u2019', # Apostrophe Windoz
     u'oe': u'\u0153',
     u'OE': u'\u0152',
-    u'...': u'\u2026'
+    u'...': u'\u2026',
+    u'-': u'\u2013',  # mdash
     }
 
 class FileSystemInfo(object):
