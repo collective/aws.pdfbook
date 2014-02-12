@@ -4,6 +4,9 @@ Changelog
 1.0.4 (unreleased)
 ------------------
 
+- Keep &, < and > characters in pdf.
+  [vincentfretin]
+
 - Replace unicode mdash by simple ascii dash.
   The mdash character was replaced by '?' in pdf before.
   [vincentfretin]

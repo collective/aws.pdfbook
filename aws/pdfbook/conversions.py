@@ -37,6 +37,9 @@ CHAR_MAPPING = {
     u'OE': u'\u0152',
     u'...': u'\u2026',
     u'-': u'\u2013',  # mdash
+    u'>': u'&gt;',
+    u'<': u'&lt;',
+    u'&': u'&amp;',
     }
 
 class FileSystemInfo(object):
