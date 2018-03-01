@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<object name="portal_properties">
+  <object remove="True" name="aws_pdfbook_properties" meta_type="Plone Property Sheet"/>
+</object>
