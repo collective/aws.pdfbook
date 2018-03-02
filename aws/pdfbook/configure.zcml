@@ -16,6 +16,14 @@
      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
      provides="Products.GenericSetup.interfaces.EXTENSION"
      />
+  <gs:registerProfile
+     name="uninstall"
+     title="aws.pdfbook (uninstall)"
+     description="Uninstall Products.PDFBook exports contents to PDF"
+     directory="profiles/uninstall"
+     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+     provides="Products.GenericSetup.interfaces.EXTENSION"
+     />
 
   <include package=".browser" />
 
